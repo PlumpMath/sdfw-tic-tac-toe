@@ -1,0 +1,38 @@
+#board {
+  background-image: url('board.png');
+  width: 730px;
+  height: 510px;
+  background-repeat: no-repeat;
+}
+
+.x{
+  background-image: url('x_marker.png');
+  width: 125px;
+  height: 106px;
+  background-repeat: no-repeat;
+}
+
+.o{
+  background-image: url('o_marker.png');
+  width: 125px;
+  height: 106px;
+  background-repeat: no-repeat;
+}
+
+.row-1 .col-1{
+    position: absolute;
+    left: 80px;
+    top: 30px;
+}
+
+.row-1 .col-2{
+    position: absolute;
+    left: 269px;
+    top: 30px;
+}
+
+.row-1 .col-3{
+    position: absolute;
+    left: 460px;
+    top: 30px;
+}
