@@ -36,3 +36,40 @@
     left: 460px;
     top: 30px;
 }
+
+.row-2 .col-1{
+    position: absolute;
+    left: 80px;
+    top: 187px;
+}
+
+.row-2 .col-2{
+    position: absolute;
+    left: 269px;
+    top: 187px;
+}
+
+.row-2 .col-3{
+    position: absolute;
+    left: 460px;
+    top: 187px;
+}
+
+.row-3 .col-1{
+    position: absolute;
+    left: 80px;
+    top: 354px;
+}
+
+.row-3 .col-2{
+    position: absolute;
+    left: 269px;
+    top: 354px;
+}
+
+.row-3 .col-3{
+    position: absolute;
+    left: 481px;
+    top: 354px;
+}
+
