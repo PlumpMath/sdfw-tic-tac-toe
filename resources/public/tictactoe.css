@@ -22,54 +22,58 @@
 .row-1 .col-1{
     position: absolute;
     left: 80px;
-    top: 30px;
+    top: 90px;
 }
 
 .row-1 .col-2{
     position: absolute;
     left: 269px;
-    top: 30px;
+    top: 90px;
 }
 
 .row-1 .col-3{
     position: absolute;
     left: 460px;
-    top: 30px;
+    top: 90px;
 }
 
 .row-2 .col-1{
     position: absolute;
     left: 80px;
-    top: 187px;
+    top: 246px;
 }
 
 .row-2 .col-2{
     position: absolute;
     left: 269px;
-    top: 187px;
+    top: 246px;
 }
 
 .row-2 .col-3{
     position: absolute;
     left: 460px;
-    top: 187px;
+    top: 246px;
 }
 
 .row-3 .col-1{
     position: absolute;
     left: 80px;
-    top: 354px;
+    top: 409px;
 }
 
 .row-3 .col-2{
     position: absolute;
     left: 269px;
-    top: 354px;
+    top: 409px;
 }
 
 .row-3 .col-3{
     position: absolute;
     left: 481px;
-    top: 354px;
+    top: 409px;
+}
+
+h1{
+    font-family: 'Share Tech', sans-serif;
 }
 
