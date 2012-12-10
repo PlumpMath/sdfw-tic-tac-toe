@@ -26826,12 +26826,12 @@ goog.require("domina.events");
 goog.require("domina.css");
 goog.require("domina");
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "\ufdd0'click", function(evt) {
-  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "active"), "inactive");
-  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "x-marker-choose"), "inactive"), "active")
+  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "inactive"), "active");
+  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "x-marker-choose"), "active"), "inactive")
 });
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "x-marker-choose"), "\ufdd0'click", function(evt) {
-  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "active"), "inactive");
-  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "inactive"), "active")
+  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "inactive"), "active");
+  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "active"), "inactive")
 });
 goog.provide("sdfw_tic_tac_toe.game");
 goog.require("cljs.core");
