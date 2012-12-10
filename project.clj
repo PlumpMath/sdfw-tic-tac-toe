@@ -8,13 +8,12 @@
   :plugins [[lein-cljsbuild "0.2.9"]]
   :source-path "src-clj"
   :cljsbuild {
-	:builds [{
-		:source-path "src-cljs"
-		:compiler {
-			:output-to "resources/public/tictactoe.js"
-			:optimization :whitespace
-			:pretty-print true
-			}
-                   }]
-}
-)
+    :builds [{
+        ; The path to the top-level ClojureScript source directory:
+        :source-path "src-cljs"
+        ; The standard ClojureScript compiler options:
+        ; (See the ClojureScript compiler documentation for details.)
+        :compiler {
+          :output-to "resources/public/tictactoe.js"  ; default: main.js in current directory
+          :optimizations :whitespace
+          :pretty-print true}}]})
