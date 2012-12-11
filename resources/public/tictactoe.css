@@ -19,6 +19,14 @@
   background-repeat: no-repeat;
 }
 
+.blank{
+  background-image: url('blank_marker.png');
+  width: 125px;
+  height: 106px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
 .row-1 .col-1{
     position: absolute;
     left: 80px;
