@@ -1,7 +1,8 @@
 (ns sdfw-tic-tac-toe.ui
 (:require 
   [domina :as d]
-  [domina.events :as de]))
+  [domina.events :as de]
+  [sdfw-tic-tac-toe.game :as game]))
 
 (defn marker-chosen []
   (if (d/has-class? (d/by-id "x-marker-choose") "active") "x" "o"))
@@ -13,11 +14,23 @@
     :else nil))
 
 (defn page-to-board []
-  (let [tiles (d/by-class "tile")]
-    (partition 3 (map transform-tile (d/nodes tiles)))))
+  (let [tiles (d/by-class "tile")
+         s-tiles (d/nodes tiles)
+         t-tiles (map transform-tile s-tiles)
+         p-tiles (partition 3 t-tiles)]
+    (reduce #(conj %1 (vec %2)) [] p-tiles)))
+
+(defn transform-move-tile [tile new-s]
+  (if-not
+    (d/has-class? tile new-s)
+    (-> tile
+      (d/remove-class! "blank")
+      (d/add-class! new-s))))
+
 
 (de/listen! (d/by-id "o-marker-choose") :click
   (fn [evt]
+    debugger
     (-> (de/target evt)
       (d/remove-class! "inactive")
       (d/add-class! "active"))
@@ -37,7 +50,8 @@
     (-> (de/target evt)
       (d/remove-class! "blank")
       (d/add-class! (marker-chosen)))
-    (d/log (page-to-board))))
+    (d/log (page-to-board))
+    (d/log (game/debug-move :x (page-to-board)))))
 
 
 (de/listen! (d/by-id "new-game") :click

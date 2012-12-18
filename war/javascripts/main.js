@@ -19931,32 +19931,6 @@ cljs.core.UUID.prototype.toString = function() {
   return cljs.core.pr_str.call(null, this__10044)
 };
 cljs.core.UUID;
-goog.provide("goog.debug.EntryPointMonitor");
-goog.provide("goog.debug.entryPointRegistry");
-goog.debug.EntryPointMonitor = function() {
-};
-goog.debug.EntryPointMonitor.prototype.wrap;
-goog.debug.EntryPointMonitor.prototype.unwrap;
-goog.debug.entryPointRegistry.refList_ = [];
-goog.debug.entryPointRegistry.register = function(callback) {
-  goog.debug.entryPointRegistry.refList_[goog.debug.entryPointRegistry.refList_.length] = callback
-};
-goog.debug.entryPointRegistry.monitorAll = function(monitor) {
-  var transformer = goog.bind(monitor.wrap, monitor);
-  for(var i = 0;i < goog.debug.entryPointRegistry.refList_.length;i++) {
-    goog.debug.entryPointRegistry.refList_[i](transformer)
-  }
-};
-goog.debug.entryPointRegistry.unmonitorAllIfPossible = function(monitor) {
-  var transformer = goog.bind(monitor.unwrap, monitor);
-  for(var i = 0;i < goog.debug.entryPointRegistry.refList_.length;i++) {
-    goog.debug.entryPointRegistry.refList_[i](transformer)
-  }
-};
-goog.provide("goog.debug.errorHandlerWeakDep");
-goog.debug.errorHandlerWeakDep = {protectEntryPoint:function(fn, opt_tracers) {
-  return fn
-}};
 goog.provide("goog.userAgent");
 goog.require("goog.string");
 goog.userAgent.ASSUME_IE = false;
@@ -20061,9 +20035,11 @@ goog.userAgent.isVersionCache_ = {};
 goog.userAgent.isVersion = function(version) {
   return goog.userAgent.isVersionCache_[version] || (goog.userAgent.isVersionCache_[version] = goog.string.compareVersions(goog.userAgent.VERSION, version) >= 0)
 };
-goog.provide("goog.events.BrowserFeature");
+goog.provide("goog.events.EventType");
 goog.require("goog.userAgent");
-goog.events.BrowserFeature = {HAS_W3C_BUTTON:!goog.userAgent.IE || goog.userAgent.isVersion("9"), SET_KEY_CODE_TO_PREVENT_DEFAULT:goog.userAgent.IE && !goog.userAgent.isVersion("8")};
+goog.events.EventType = {CLICK:"click", DBLCLICK:"dblclick", MOUSEDOWN:"mousedown", MOUSEUP:"mouseup", MOUSEOVER:"mouseover", MOUSEOUT:"mouseout", MOUSEMOVE:"mousemove", SELECTSTART:"selectstart", KEYPRESS:"keypress", KEYDOWN:"keydown", KEYUP:"keyup", BLUR:"blur", FOCUS:"focus", DEACTIVATE:"deactivate", FOCUSIN:goog.userAgent.IE ? "focusin" : "DOMFocusIn", FOCUSOUT:goog.userAgent.IE ? "focusout" : "DOMFocusOut", CHANGE:"change", SELECT:"select", SUBMIT:"submit", INPUT:"input", PROPERTYCHANGE:"propertychange", 
+DRAGSTART:"dragstart", DRAGENTER:"dragenter", DRAGOVER:"dragover", DRAGLEAVE:"dragleave", DROP:"drop", TOUCHSTART:"touchstart", TOUCHMOVE:"touchmove", TOUCHEND:"touchend", TOUCHCANCEL:"touchcancel", CONTEXTMENU:"contextmenu", ERROR:"error", HELP:"help", LOAD:"load", LOSECAPTURE:"losecapture", READYSTATECHANGE:"readystatechange", RESIZE:"resize", SCROLL:"scroll", UNLOAD:"unload", HASHCHANGE:"hashchange", PAGEHIDE:"pagehide", PAGESHOW:"pageshow", POPSTATE:"popstate", COPY:"copy", PASTE:"paste", CUT:"cut", 
+MESSAGE:"message", CONNECT:"connect"};
 goog.provide("goog.disposable.IDisposable");
 goog.disposable.IDisposable = function() {
 };
@@ -20116,6 +20092,35 @@ goog.dispose = function(obj) {
     obj.dispose()
   }
 };
+goog.provide("goog.debug.EntryPointMonitor");
+goog.provide("goog.debug.entryPointRegistry");
+goog.debug.EntryPointMonitor = function() {
+};
+goog.debug.EntryPointMonitor.prototype.wrap;
+goog.debug.EntryPointMonitor.prototype.unwrap;
+goog.debug.entryPointRegistry.refList_ = [];
+goog.debug.entryPointRegistry.register = function(callback) {
+  goog.debug.entryPointRegistry.refList_[goog.debug.entryPointRegistry.refList_.length] = callback
+};
+goog.debug.entryPointRegistry.monitorAll = function(monitor) {
+  var transformer = goog.bind(monitor.wrap, monitor);
+  for(var i = 0;i < goog.debug.entryPointRegistry.refList_.length;i++) {
+    goog.debug.entryPointRegistry.refList_[i](transformer)
+  }
+};
+goog.debug.entryPointRegistry.unmonitorAllIfPossible = function(monitor) {
+  var transformer = goog.bind(monitor.unwrap, monitor);
+  for(var i = 0;i < goog.debug.entryPointRegistry.refList_.length;i++) {
+    goog.debug.entryPointRegistry.refList_[i](transformer)
+  }
+};
+goog.provide("goog.debug.errorHandlerWeakDep");
+goog.debug.errorHandlerWeakDep = {protectEntryPoint:function(fn, opt_tracers) {
+  return fn
+}};
+goog.provide("goog.events.BrowserFeature");
+goog.require("goog.userAgent");
+goog.events.BrowserFeature = {HAS_W3C_BUTTON:!goog.userAgent.IE || goog.userAgent.isVersion("9"), SET_KEY_CODE_TO_PREVENT_DEFAULT:goog.userAgent.IE && !goog.userAgent.isVersion("8")};
 goog.provide("goog.events.Event");
 goog.require("goog.Disposable");
 goog.events.Event = function(type, opt_target) {
@@ -20144,11 +20149,6 @@ goog.events.Event.stopPropagation = function(e) {
 goog.events.Event.preventDefault = function(e) {
   e.preventDefault()
 };
-goog.provide("goog.events.EventType");
-goog.require("goog.userAgent");
-goog.events.EventType = {CLICK:"click", DBLCLICK:"dblclick", MOUSEDOWN:"mousedown", MOUSEUP:"mouseup", MOUSEOVER:"mouseover", MOUSEOUT:"mouseout", MOUSEMOVE:"mousemove", SELECTSTART:"selectstart", KEYPRESS:"keypress", KEYDOWN:"keydown", KEYUP:"keyup", BLUR:"blur", FOCUS:"focus", DEACTIVATE:"deactivate", FOCUSIN:goog.userAgent.IE ? "focusin" : "DOMFocusIn", FOCUSOUT:goog.userAgent.IE ? "focusout" : "DOMFocusOut", CHANGE:"change", SELECT:"select", SUBMIT:"submit", INPUT:"input", PROPERTYCHANGE:"propertychange", 
-DRAGSTART:"dragstart", DRAGENTER:"dragenter", DRAGOVER:"dragover", DRAGLEAVE:"dragleave", DROP:"drop", TOUCHSTART:"touchstart", TOUCHMOVE:"touchmove", TOUCHEND:"touchend", TOUCHCANCEL:"touchcancel", CONTEXTMENU:"contextmenu", ERROR:"error", HELP:"help", LOAD:"load", LOSECAPTURE:"losecapture", READYSTATECHANGE:"readystatechange", RESIZE:"resize", SCROLL:"scroll", UNLOAD:"unload", HASHCHANGE:"hashchange", PAGEHIDE:"pagehide", PAGESHOW:"pageshow", POPSTATE:"popstate", COPY:"copy", PASTE:"paste", CUT:"cut", 
-MESSAGE:"message", CONNECT:"connect"};
 goog.provide("goog.reflect");
 goog.reflect.object = function(type, object) {
   return object
@@ -20986,6 +20986,180 @@ goog.debug.entryPointRegistry.register(function(transformer) {
   goog.events.handleBrowserEvent_ = transformer(goog.events.handleBrowserEvent_);
   goog.events.pools.setProxyCallbackFunction(goog.events.handleBrowserEvent_)
 });
+goog.provide("goog.events.EventTarget");
+goog.require("goog.Disposable");
+goog.require("goog.events");
+goog.events.EventTarget = function() {
+  goog.Disposable.call(this)
+};
+goog.inherits(goog.events.EventTarget, goog.Disposable);
+goog.events.EventTarget.prototype.customEvent_ = true;
+goog.events.EventTarget.prototype.parentEventTarget_ = null;
+goog.events.EventTarget.prototype.getParentEventTarget = function() {
+  return this.parentEventTarget_
+};
+goog.events.EventTarget.prototype.setParentEventTarget = function(parent) {
+  this.parentEventTarget_ = parent
+};
+goog.events.EventTarget.prototype.addEventListener = function(type, handler, opt_capture, opt_handlerScope) {
+  goog.events.listen(this, type, handler, opt_capture, opt_handlerScope)
+};
+goog.events.EventTarget.prototype.removeEventListener = function(type, handler, opt_capture, opt_handlerScope) {
+  goog.events.unlisten(this, type, handler, opt_capture, opt_handlerScope)
+};
+goog.events.EventTarget.prototype.dispatchEvent = function(e) {
+  return goog.events.dispatchEvent(this, e)
+};
+goog.events.EventTarget.prototype.disposeInternal = function() {
+  goog.events.EventTarget.superClass_.disposeInternal.call(this);
+  goog.events.removeAll(this);
+  this.parentEventTarget_ = null
+};
+goog.provide("clojure.browser.event");
+goog.require("cljs.core");
+goog.require("goog.events.EventType");
+goog.require("goog.events.EventTarget");
+goog.require("goog.events");
+void 0;
+clojure.browser.event.EventType = {};
+clojure.browser.event.event_types = function event_types(this$) {
+  if(function() {
+    var and__3822__auto____6305 = this$;
+    if(and__3822__auto____6305) {
+      return this$.clojure$browser$event$EventType$event_types$arity$1
+    }else {
+      return and__3822__auto____6305
+    }
+  }()) {
+    return this$.clojure$browser$event$EventType$event_types$arity$1(this$)
+  }else {
+    return function() {
+      var or__3824__auto____6306 = clojure.browser.event.event_types[goog.typeOf(this$)];
+      if(or__3824__auto____6306) {
+        return or__3824__auto____6306
+      }else {
+        var or__3824__auto____6307 = clojure.browser.event.event_types["_"];
+        if(or__3824__auto____6307) {
+          return or__3824__auto____6307
+        }else {
+          throw cljs.core.missing_protocol.call(null, "EventType.event-types", this$);
+        }
+      }
+    }().call(null, this$)
+  }
+};
+void 0;
+Element.prototype.clojure$browser$event$EventType$ = true;
+Element.prototype.clojure$browser$event$EventType$event_types$arity$1 = function(this$) {
+  return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(p__6308) {
+    var vec__6309__6310 = p__6308;
+    var k__6311 = cljs.core.nth.call(null, vec__6309__6310, 0, null);
+    var v__6312 = cljs.core.nth.call(null, vec__6309__6310, 1, null);
+    return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null, k__6311.toLowerCase()), v__6312], true)
+  }, cljs.core.merge.call(null, cljs.core.js__GT_clj.call(null, goog.events.EventType))))
+};
+goog.events.EventTarget.prototype.clojure$browser$event$EventType$ = true;
+goog.events.EventTarget.prototype.clojure$browser$event$EventType$event_types$arity$1 = function(this$) {
+  return cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, cljs.core.map.call(null, function(p__6313) {
+    var vec__6314__6315 = p__6313;
+    var k__6316 = cljs.core.nth.call(null, vec__6314__6315, 0, null);
+    var v__6317 = cljs.core.nth.call(null, vec__6314__6315, 1, null);
+    return cljs.core.PersistentVector.fromArray([cljs.core.keyword.call(null, k__6316.toLowerCase()), v__6317], true)
+  }, cljs.core.merge.call(null, cljs.core.js__GT_clj.call(null, goog.events.EventType))))
+};
+clojure.browser.event.listen = function() {
+  var listen = null;
+  var listen__3 = function(src, type, fn) {
+    return listen.call(null, src, type, fn, false)
+  };
+  var listen__4 = function(src, type, fn, capture_QMARK_) {
+    return goog.events.listen(src, cljs.core._lookup.call(null, clojure.browser.event.event_types.call(null, src), type, type), fn, capture_QMARK_)
+  };
+  listen = function(src, type, fn, capture_QMARK_) {
+    switch(arguments.length) {
+      case 3:
+        return listen__3.call(this, src, type, fn);
+      case 4:
+        return listen__4.call(this, src, type, fn, capture_QMARK_)
+    }
+    throw"Invalid arity: " + arguments.length;
+  };
+  listen.cljs$lang$arity$3 = listen__3;
+  listen.cljs$lang$arity$4 = listen__4;
+  return listen
+}();
+clojure.browser.event.listen_once = function() {
+  var listen_once = null;
+  var listen_once__3 = function(src, type, fn) {
+    return listen_once.call(null, src, type, fn, false)
+  };
+  var listen_once__4 = function(src, type, fn, capture_QMARK_) {
+    return goog.events.listenOnce(src, cljs.core._lookup.call(null, clojure.browser.event.event_types.call(null, src), type, type), fn, capture_QMARK_)
+  };
+  listen_once = function(src, type, fn, capture_QMARK_) {
+    switch(arguments.length) {
+      case 3:
+        return listen_once__3.call(this, src, type, fn);
+      case 4:
+        return listen_once__4.call(this, src, type, fn, capture_QMARK_)
+    }
+    throw"Invalid arity: " + arguments.length;
+  };
+  listen_once.cljs$lang$arity$3 = listen_once__3;
+  listen_once.cljs$lang$arity$4 = listen_once__4;
+  return listen_once
+}();
+clojure.browser.event.unlisten = function() {
+  var unlisten = null;
+  var unlisten__3 = function(src, type, fn) {
+    return unlisten.call(null, src, type, fn, false)
+  };
+  var unlisten__4 = function(src, type, fn, capture_QMARK_) {
+    return goog.events.unlisten(src, cljs.core._lookup.call(null, clojure.browser.event.event_types.call(null, src), type, type), fn, capture_QMARK_)
+  };
+  unlisten = function(src, type, fn, capture_QMARK_) {
+    switch(arguments.length) {
+      case 3:
+        return unlisten__3.call(this, src, type, fn);
+      case 4:
+        return unlisten__4.call(this, src, type, fn, capture_QMARK_)
+    }
+    throw"Invalid arity: " + arguments.length;
+  };
+  unlisten.cljs$lang$arity$3 = unlisten__3;
+  unlisten.cljs$lang$arity$4 = unlisten__4;
+  return unlisten
+}();
+clojure.browser.event.unlisten_by_key = function unlisten_by_key(key) {
+  return goog.events.unlistenByKey(key)
+};
+clojure.browser.event.dispatch_event = function dispatch_event(src, event) {
+  return goog.events.dispatchEvent(src, event)
+};
+clojure.browser.event.expose = function expose(e) {
+  return goog.events.expose(e)
+};
+clojure.browser.event.fire_listeners = function fire_listeners(obj, type, capture, event) {
+  return null
+};
+clojure.browser.event.total_listener_count = function total_listener_count() {
+  return goog.events.getTotalListenerCount()
+};
+clojure.browser.event.get_listener = function get_listener(src, type, listener, opt_capt, opt_handler) {
+  return null
+};
+clojure.browser.event.all_listeners = function all_listeners(obj, type, capture) {
+  return null
+};
+clojure.browser.event.unique_event_id = function unique_event_id(event_type) {
+  return null
+};
+clojure.browser.event.has_listener = function has_listener(obj, opt_type, opt_capture) {
+  return null
+};
+clojure.browser.event.remove_all = function remove_all(opt_obj, opt_type, opt_capt) {
+  return null
+};
 goog.provide("goog.dom.BrowserFeature");
 goog.require("goog.userAgent");
 goog.dom.BrowserFeature = {CAN_ADD_NAME_OR_TYPE_ATTRIBUTES:!goog.userAgent.IE || goog.userAgent.isVersion("9"), CAN_USE_CHILDREN_ATTRIBUTE:!goog.userAgent.GECKO && !goog.userAgent.IE || goog.userAgent.IE && goog.userAgent.isVersion("9") || goog.userAgent.GECKO && goog.userAgent.isVersion("1.9.1"), CAN_USE_INNER_TEXT:goog.userAgent.IE && !goog.userAgent.isVersion("9"), INNER_HTML_NEEDS_SCOPED_ELEMENT:goog.userAgent.IE};
@@ -25301,574 +25475,18 @@ if(cljs.core.truth_(typeof HTMLCollection != "undefined")) {
   }
 }else {
 }
-;goog.provide("domina.events");
+;goog.provide("sdfw_tic_tac_toe.ui");
 goog.require("cljs.core");
-goog.require("goog.events");
-goog.require("goog.object");
+goog.require("clojure.browser.event");
 goog.require("domina");
-void 0;
-domina.events.Event = {};
-domina.events.prevent_default = function prevent_default(evt) {
-  if(function() {
-    var and__3822__auto____141636 = evt;
-    if(and__3822__auto____141636) {
-      return evt.domina$events$Event$prevent_default$arity$1
-    }else {
-      return and__3822__auto____141636
-    }
-  }()) {
-    return evt.domina$events$Event$prevent_default$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141637 = domina.events.prevent_default[goog.typeOf(evt)];
-      if(or__3824__auto____141637) {
-        return or__3824__auto____141637
-      }else {
-        var or__3824__auto____141638 = domina.events.prevent_default["_"];
-        if(or__3824__auto____141638) {
-          return or__3824__auto____141638
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.prevent-default", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-domina.events.stop_propagation = function stop_propagation(evt) {
-  if(function() {
-    var and__3822__auto____141642 = evt;
-    if(and__3822__auto____141642) {
-      return evt.domina$events$Event$stop_propagation$arity$1
-    }else {
-      return and__3822__auto____141642
-    }
-  }()) {
-    return evt.domina$events$Event$stop_propagation$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141643 = domina.events.stop_propagation[goog.typeOf(evt)];
-      if(or__3824__auto____141643) {
-        return or__3824__auto____141643
-      }else {
-        var or__3824__auto____141644 = domina.events.stop_propagation["_"];
-        if(or__3824__auto____141644) {
-          return or__3824__auto____141644
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.stop-propagation", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-domina.events.target = function target(evt) {
-  if(function() {
-    var and__3822__auto____141648 = evt;
-    if(and__3822__auto____141648) {
-      return evt.domina$events$Event$target$arity$1
-    }else {
-      return and__3822__auto____141648
-    }
-  }()) {
-    return evt.domina$events$Event$target$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141649 = domina.events.target[goog.typeOf(evt)];
-      if(or__3824__auto____141649) {
-        return or__3824__auto____141649
-      }else {
-        var or__3824__auto____141650 = domina.events.target["_"];
-        if(or__3824__auto____141650) {
-          return or__3824__auto____141650
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.target", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-domina.events.current_target = function current_target(evt) {
-  if(function() {
-    var and__3822__auto____141654 = evt;
-    if(and__3822__auto____141654) {
-      return evt.domina$events$Event$current_target$arity$1
-    }else {
-      return and__3822__auto____141654
-    }
-  }()) {
-    return evt.domina$events$Event$current_target$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141655 = domina.events.current_target[goog.typeOf(evt)];
-      if(or__3824__auto____141655) {
-        return or__3824__auto____141655
-      }else {
-        var or__3824__auto____141656 = domina.events.current_target["_"];
-        if(or__3824__auto____141656) {
-          return or__3824__auto____141656
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.current-target", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-domina.events.event_type = function event_type(evt) {
-  if(function() {
-    var and__3822__auto____141660 = evt;
-    if(and__3822__auto____141660) {
-      return evt.domina$events$Event$event_type$arity$1
-    }else {
-      return and__3822__auto____141660
-    }
-  }()) {
-    return evt.domina$events$Event$event_type$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141661 = domina.events.event_type[goog.typeOf(evt)];
-      if(or__3824__auto____141661) {
-        return or__3824__auto____141661
-      }else {
-        var or__3824__auto____141662 = domina.events.event_type["_"];
-        if(or__3824__auto____141662) {
-          return or__3824__auto____141662
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.event-type", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-domina.events.raw_event = function raw_event(evt) {
-  if(function() {
-    var and__3822__auto____141666 = evt;
-    if(and__3822__auto____141666) {
-      return evt.domina$events$Event$raw_event$arity$1
-    }else {
-      return and__3822__auto____141666
-    }
-  }()) {
-    return evt.domina$events$Event$raw_event$arity$1(evt)
-  }else {
-    return function() {
-      var or__3824__auto____141667 = domina.events.raw_event[goog.typeOf(evt)];
-      if(or__3824__auto____141667) {
-        return or__3824__auto____141667
-      }else {
-        var or__3824__auto____141668 = domina.events.raw_event["_"];
-        if(or__3824__auto____141668) {
-          return or__3824__auto____141668
-        }else {
-          throw cljs.core.missing_protocol.call(null, "Event.raw-event", evt);
-        }
-      }
-    }().call(null, evt)
-  }
-};
-void 0;
-domina.events.builtin_events = cljs.core.set.call(null, cljs.core.map.call(null, cljs.core.keyword, goog.object.getValues(goog.events.EventType)));
-domina.events.root_element = window.document.documentElement;
-domina.events.find_builtin_type = function find_builtin_type(evt_type) {
-  if(cljs.core.contains_QMARK_.call(null, domina.events.builtin_events, evt_type)) {
-    return cljs.core.name.call(null, evt_type)
-  }else {
-    return evt_type
-  }
-};
-domina.events.create_listener_function = function create_listener_function(f) {
-  return function(evt) {
-    f.call(null, function() {
-      if(void 0 === domina.events.t141685) {
-        domina.events.t141685 = function(evt, f, create_listener_function, meta141686) {
-          this.evt = evt;
-          this.f = f;
-          this.create_listener_function = create_listener_function;
-          this.meta141686 = meta141686;
-          this.cljs$lang$protocol_mask$partition1$ = 0;
-          this.cljs$lang$protocol_mask$partition0$ = 393472
-        };
-        domina.events.t141685.cljs$lang$type = true;
-        domina.events.t141685.cljs$lang$ctorPrSeq = function(this__2270__auto__) {
-          return cljs.core.list.call(null, "domina.events/t141685")
-        };
-        domina.events.t141685.prototype.cljs$core$ILookup$_lookup$arity$2 = function(o, k) {
-          var this__141688 = this;
-          var temp__3971__auto____141689 = this__141688.evt[k];
-          if(cljs.core.truth_(temp__3971__auto____141689)) {
-            var val__141690 = temp__3971__auto____141689;
-            return val__141690
-          }else {
-            return this__141688.evt[cljs.core.name.call(null, k)]
-          }
-        };
-        domina.events.t141685.prototype.cljs$core$ILookup$_lookup$arity$3 = function(o, k, not_found) {
-          var this__141691 = this;
-          var or__3824__auto____141692 = o.cljs$core$ILookup$_lookup$arity$2(o, k);
-          if(cljs.core.truth_(or__3824__auto____141692)) {
-            return or__3824__auto____141692
-          }else {
-            return not_found
-          }
-        };
-        domina.events.t141685.prototype.domina$events$Event$ = true;
-        domina.events.t141685.prototype.domina$events$Event$prevent_default$arity$1 = function(_) {
-          var this__141693 = this;
-          return this__141693.evt.preventDefault()
-        };
-        domina.events.t141685.prototype.domina$events$Event$stop_propagation$arity$1 = function(_) {
-          var this__141694 = this;
-          return this__141694.evt.stopPropagation()
-        };
-        domina.events.t141685.prototype.domina$events$Event$target$arity$1 = function(_) {
-          var this__141695 = this;
-          return this__141695.evt.target
-        };
-        domina.events.t141685.prototype.domina$events$Event$current_target$arity$1 = function(_) {
-          var this__141696 = this;
-          return this__141696.evt.currentTarget
-        };
-        domina.events.t141685.prototype.domina$events$Event$event_type$arity$1 = function(_) {
-          var this__141697 = this;
-          return this__141697.evt.type
-        };
-        domina.events.t141685.prototype.domina$events$Event$raw_event$arity$1 = function(_) {
-          var this__141698 = this;
-          return this__141698.evt
-        };
-        domina.events.t141685.prototype.cljs$core$IMeta$_meta$arity$1 = function(_141687) {
-          var this__141699 = this;
-          return this__141699.meta141686
-        };
-        domina.events.t141685.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(_141687, meta141686) {
-          var this__141700 = this;
-          return new domina.events.t141685(this__141700.evt, this__141700.f, this__141700.create_listener_function, meta141686)
-        };
-        domina.events.t141685
-      }else {
-      }
-      return new domina.events.t141685(evt, f, create_listener_function, null)
-    }());
-    return true
-  }
-};
-domina.events.listen_internal_BANG_ = function listen_internal_BANG_(content, type, listener, capture, once) {
-  var f__141710 = domina.events.create_listener_function.call(null, listener);
-  var t__141711 = domina.events.find_builtin_type.call(null, type);
-  return cljs.core.doall.call(null, function() {
-    var iter__2427__auto____141718 = function iter__141712(s__141713) {
-      return new cljs.core.LazySeq(null, false, function() {
-        var s__141713__141716 = s__141713;
-        while(true) {
-          if(cljs.core.seq.call(null, s__141713__141716)) {
-            var node__141717 = cljs.core.first.call(null, s__141713__141716);
-            return cljs.core.cons.call(null, cljs.core.truth_(once) ? goog.events.listenOnce(node__141717, t__141711, f__141710, capture) : goog.events.listen(node__141717, t__141711, f__141710, capture), iter__141712.call(null, cljs.core.rest.call(null, s__141713__141716)))
-          }else {
-            return null
-          }
-          break
-        }
-      }, null)
-    };
-    return iter__2427__auto____141718.call(null, domina.nodes.call(null, content))
-  }())
-};
-domina.events.listen_BANG_ = function() {
-  var listen_BANG_ = null;
-  var listen_BANG___2 = function(type, listener) {
-    return listen_BANG_.call(null, domina.events.root_element, type, listener)
-  };
-  var listen_BANG___3 = function(content, type, listener) {
-    return domina.events.listen_internal_BANG_.call(null, content, type, listener, false, false)
-  };
-  listen_BANG_ = function(content, type, listener) {
-    switch(arguments.length) {
-      case 2:
-        return listen_BANG___2.call(this, content, type);
-      case 3:
-        return listen_BANG___3.call(this, content, type, listener)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  listen_BANG_.cljs$lang$arity$2 = listen_BANG___2;
-  listen_BANG_.cljs$lang$arity$3 = listen_BANG___3;
-  return listen_BANG_
-}();
-domina.events.capture_BANG_ = function() {
-  var capture_BANG_ = null;
-  var capture_BANG___2 = function(type, listener) {
-    return capture_BANG_.call(null, domina.events.root_element, type, listener)
-  };
-  var capture_BANG___3 = function(content, type, listener) {
-    return domina.events.listen_internal_BANG_.call(null, content, type, listener, true, false)
-  };
-  capture_BANG_ = function(content, type, listener) {
-    switch(arguments.length) {
-      case 2:
-        return capture_BANG___2.call(this, content, type);
-      case 3:
-        return capture_BANG___3.call(this, content, type, listener)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  capture_BANG_.cljs$lang$arity$2 = capture_BANG___2;
-  capture_BANG_.cljs$lang$arity$3 = capture_BANG___3;
-  return capture_BANG_
-}();
-domina.events.listen_once_BANG_ = function() {
-  var listen_once_BANG_ = null;
-  var listen_once_BANG___2 = function(type, listener) {
-    return listen_once_BANG_.call(null, domina.events.root_element, type, listener)
-  };
-  var listen_once_BANG___3 = function(content, type, listener) {
-    return domina.events.listen_internal_BANG_.call(null, content, type, listener, false, true)
-  };
-  listen_once_BANG_ = function(content, type, listener) {
-    switch(arguments.length) {
-      case 2:
-        return listen_once_BANG___2.call(this, content, type);
-      case 3:
-        return listen_once_BANG___3.call(this, content, type, listener)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  listen_once_BANG_.cljs$lang$arity$2 = listen_once_BANG___2;
-  listen_once_BANG_.cljs$lang$arity$3 = listen_once_BANG___3;
-  return listen_once_BANG_
-}();
-domina.events.capture_once_BANG_ = function() {
-  var capture_once_BANG_ = null;
-  var capture_once_BANG___2 = function(type, listener) {
-    return capture_once_BANG_.call(null, domina.events.root_element, type, listener)
-  };
-  var capture_once_BANG___3 = function(content, type, listener) {
-    return domina.events.listen_internal_BANG_.call(null, content, type, listener, true, true)
-  };
-  capture_once_BANG_ = function(content, type, listener) {
-    switch(arguments.length) {
-      case 2:
-        return capture_once_BANG___2.call(this, content, type);
-      case 3:
-        return capture_once_BANG___3.call(this, content, type, listener)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  capture_once_BANG_.cljs$lang$arity$2 = capture_once_BANG___2;
-  capture_once_BANG_.cljs$lang$arity$3 = capture_once_BANG___3;
-  return capture_once_BANG_
-}();
-domina.events.unlisten_BANG_ = function() {
-  var unlisten_BANG_ = null;
-  var unlisten_BANG___0 = function() {
-    return unlisten_BANG_.call(null, domina.events.root_element)
-  };
-  var unlisten_BANG___1 = function(content) {
-    var G__141726__141727 = cljs.core.seq.call(null, domina.nodes.call(null, content));
-    if(G__141726__141727) {
-      var node__141728 = cljs.core.first.call(null, G__141726__141727);
-      var G__141726__141729 = G__141726__141727;
-      while(true) {
-        goog.events.removeAll(node__141728);
-        var temp__3974__auto____141730 = cljs.core.next.call(null, G__141726__141729);
-        if(temp__3974__auto____141730) {
-          var G__141726__141731 = temp__3974__auto____141730;
-          var G__141733 = cljs.core.first.call(null, G__141726__141731);
-          var G__141734 = G__141726__141731;
-          node__141728 = G__141733;
-          G__141726__141729 = G__141734;
-          continue
-        }else {
-          return null
-        }
-        break
-      }
-    }else {
-      return null
-    }
-  };
-  var unlisten_BANG___2 = function(content, type) {
-    var type__141732 = domina.events.find_builtin_type.call(null, type);
-    return goog.events.removeAll(domina.events.node, type__141732)
-  };
-  unlisten_BANG_ = function(content, type) {
-    switch(arguments.length) {
-      case 0:
-        return unlisten_BANG___0.call(this);
-      case 1:
-        return unlisten_BANG___1.call(this, content);
-      case 2:
-        return unlisten_BANG___2.call(this, content, type)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  unlisten_BANG_.cljs$lang$arity$0 = unlisten_BANG___0;
-  unlisten_BANG_.cljs$lang$arity$1 = unlisten_BANG___1;
-  unlisten_BANG_.cljs$lang$arity$2 = unlisten_BANG___2;
-  return unlisten_BANG_
-}();
-domina.events.ancestor_nodes = function() {
-  var ancestor_nodes = null;
-  var ancestor_nodes__1 = function(n) {
-    return ancestor_nodes.call(null, n, cljs.core.PersistentVector.fromArray([n], true))
-  };
-  var ancestor_nodes__2 = function(n, so_far) {
-    while(true) {
-      var temp__3971__auto____141737 = n.parentNode;
-      if(cljs.core.truth_(temp__3971__auto____141737)) {
-        var parent__141738 = temp__3971__auto____141737;
-        var G__141739 = parent__141738;
-        var G__141740 = cljs.core.cons.call(null, parent__141738, so_far);
-        n = G__141739;
-        so_far = G__141740;
-        continue
-      }else {
-        return so_far
-      }
-      break
-    }
-  };
-  ancestor_nodes = function(n, so_far) {
-    switch(arguments.length) {
-      case 1:
-        return ancestor_nodes__1.call(this, n);
-      case 2:
-        return ancestor_nodes__2.call(this, n, so_far)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  ancestor_nodes.cljs$lang$arity$1 = ancestor_nodes__1;
-  ancestor_nodes.cljs$lang$arity$2 = ancestor_nodes__2;
-  return ancestor_nodes
-}();
-domina.events.dispatch_browser_BANG_ = function dispatch_browser_BANG_(source, evt) {
-  var ancestors__141754 = domina.events.ancestor_nodes.call(null, domina.single_node.call(null, source));
-  var G__141755__141756 = cljs.core.seq.call(null, ancestors__141754);
-  if(G__141755__141756) {
-    var n__141757 = cljs.core.first.call(null, G__141755__141756);
-    var G__141755__141758 = G__141755__141756;
-    while(true) {
-      if(cljs.core.truth_(n__141757.propagationStopped)) {
-      }else {
-        evt.currentTarget = n__141757;
-        goog.events.fireListeners(n__141757, evt.type, true, evt)
-      }
-      var temp__3974__auto____141759 = cljs.core.next.call(null, G__141755__141758);
-      if(temp__3974__auto____141759) {
-        var G__141755__141760 = temp__3974__auto____141759;
-        var G__141767 = cljs.core.first.call(null, G__141755__141760);
-        var G__141768 = G__141755__141760;
-        n__141757 = G__141767;
-        G__141755__141758 = G__141768;
-        continue
-      }else {
-      }
-      break
-    }
-  }else {
-  }
-  var G__141761__141762 = cljs.core.seq.call(null, cljs.core.reverse.call(null, ancestors__141754));
-  if(G__141761__141762) {
-    var n__141763 = cljs.core.first.call(null, G__141761__141762);
-    var G__141761__141764 = G__141761__141762;
-    while(true) {
-      if(cljs.core.truth_(n__141763.propagationStopped)) {
-      }else {
-        evt.currentTarget = n__141763;
-        goog.events.fireListeners(n__141763, evt.type, false, evt)
-      }
-      var temp__3974__auto____141765 = cljs.core.next.call(null, G__141761__141764);
-      if(temp__3974__auto____141765) {
-        var G__141761__141766 = temp__3974__auto____141765;
-        var G__141769 = cljs.core.first.call(null, G__141761__141766);
-        var G__141770 = G__141761__141766;
-        n__141763 = G__141769;
-        G__141761__141764 = G__141770;
-        continue
-      }else {
-      }
-      break
-    }
-  }else {
-  }
-  return evt.returnValue_
-};
-domina.events.dispatch_event_target_BANG_ = function dispatch_event_target_BANG_(source, evt) {
-  return goog.events.dispatchEvent(source, evt)
-};
-domina.events.is_event_target_QMARK_ = function is_event_target_QMARK_(o) {
-  var and__3822__auto____141772 = o.getParentEventTarget;
-  if(cljs.core.truth_(and__3822__auto____141772)) {
-    return o.dispatchEvent
-  }else {
-    return and__3822__auto____141772
-  }
-};
-domina.events.dispatch_BANG_ = function() {
-  var dispatch_BANG_ = null;
-  var dispatch_BANG___2 = function(type, evt_map) {
-    return dispatch_BANG_.call(null, domina.events.root_element, type, evt_map)
-  };
-  var dispatch_BANG___3 = function(source, type, evt_map) {
-    var evt__141793 = new goog.events.Event(domina.events.find_builtin_type.call(null, type));
-    var G__141794__141795 = cljs.core.seq.call(null, evt_map);
-    if(G__141794__141795) {
-      var G__141797__141799 = cljs.core.first.call(null, G__141794__141795);
-      var vec__141798__141800 = G__141797__141799;
-      var k__141801 = cljs.core.nth.call(null, vec__141798__141800, 0, null);
-      var v__141802 = cljs.core.nth.call(null, vec__141798__141800, 1, null);
-      var G__141794__141803 = G__141794__141795;
-      var G__141797__141804 = G__141797__141799;
-      var G__141794__141805 = G__141794__141803;
-      while(true) {
-        var vec__141806__141807 = G__141797__141804;
-        var k__141808 = cljs.core.nth.call(null, vec__141806__141807, 0, null);
-        var v__141809 = cljs.core.nth.call(null, vec__141806__141807, 1, null);
-        var G__141794__141810 = G__141794__141805;
-        evt__141793[k__141808] = v__141809;
-        var temp__3974__auto____141811 = cljs.core.next.call(null, G__141794__141810);
-        if(temp__3974__auto____141811) {
-          var G__141794__141812 = temp__3974__auto____141811;
-          var G__141813 = cljs.core.first.call(null, G__141794__141812);
-          var G__141814 = G__141794__141812;
-          G__141797__141804 = G__141813;
-          G__141794__141805 = G__141814;
-          continue
-        }else {
-        }
-        break
-      }
-    }else {
-    }
-    if(cljs.core.truth_(domina.events.is_event_target_QMARK_.call(null, source))) {
-      return domina.events.dispatch_event_target_BANG_.call(null, source, evt__141793)
-    }else {
-      return domina.events.dispatch_browser_BANG_.call(null, source, evt__141793)
-    }
-  };
-  dispatch_BANG_ = function(source, type, evt_map) {
-    switch(arguments.length) {
-      case 2:
-        return dispatch_BANG___2.call(this, source, type);
-      case 3:
-        return dispatch_BANG___3.call(this, source, type, evt_map)
-    }
-    throw"Invalid arity: " + arguments.length;
-  };
-  dispatch_BANG_.cljs$lang$arity$2 = dispatch_BANG___2;
-  dispatch_BANG_.cljs$lang$arity$3 = dispatch_BANG___3;
-  return dispatch_BANG_
-}();
-domina.events.unlisten_by_key_BANG_ = function unlisten_by_key_BANG_(key) {
-  return goog.events.unlistenByKey(key)
-};
-domina.events.get_listeners = function get_listeners(content, type) {
-  var type__141817 = domina.events.find_builtin_type.call(null, type);
-  return cljs.core.mapcat.call(null, function(p1__141815_SHARP_) {
-    return goog.events.getListeners(p1__141815_SHARP_, type__141817, false)
-  }, domina.nodes.call(null, content))
-};
+sdfw_tic_tac_toe.ui.search_button = domina.by_id.call(null, "search-btn");
+clojure.browser.event.listen.call(null, sdfw_tic_tac_toe.ui.search_button, "click", function() {
+  return alert(domina.value.call(null, domina.by_id.call(null, "lname")))
+});
 goog.provide("sdfw_tic_tac_toe.game");
 goog.require("cljs.core");
-sdfw_tic_tac_toe.game.beliefs = cljs.core.ObjMap.fromObject(["\ufdd0'win", "\ufdd0'lose", "\ufdd0'noone"], {"\ufdd0'win":"I am going to win.", "\ufdd0'lose":"My opponent is going to win.", "\ufdd0'noone":"No one is going to win."});
-sdfw_tic_tac_toe.game.belief_action_preferences = cljs.core.PersistentArrayMap.fromArrays([sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'win"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'lose"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'noone")], [1, 2, 3]);
+sdfw_tic_tac_toe.game.beliefs = cljs.core.ObjMap.fromObject(["\ufdd0'win", "\ufdd0'lose", "\ufdd0'nonone"], {"\ufdd0'win":"I am going to win.", "\ufdd0'lose":"My opponent is going to win.", "\ufdd0'nonone":"No one is going to win."});
+sdfw_tic_tac_toe.game.belief_ranking = cljs.core.PersistentArrayMap.fromArrays([sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'win"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'lose"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'noone")], [1, 2, 3]);
 sdfw_tic_tac_toe.game.win_across = function win_across(s, board) {
   return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__5866_SHARP_) {
     return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__5866_SHARP_)
@@ -25978,18 +25596,18 @@ sdfw_tic_tac_toe.game.belief_about_move = function belief_about_move(s, move) {
   }
 };
 sdfw_tic_tac_toe.game.choose_move = function choose_move(moves_with_beliefs) {
-  var ranked_moves__5929 = cljs.core.sort_by.call(null, "\ufdd0'rank", cljs.core.map.call(null, function(p1__5924_SHARP_) {
-    return cljs.core.assoc.call(null, p1__5924_SHARP_, "\ufdd0'rank", sdfw_tic_tac_toe.game.belief_action_preferences.call(null, p1__5924_SHARP_.call(null, "\ufdd0'belief")))
+  var ranked_moves__5927 = cljs.core.sort_by.call(null, "\ufdd0'rank", cljs.core.map.call(null, function(p1__5924_SHARP_) {
+    return cljs.core.assoc.call(null, p1__5924_SHARP_, "\ufdd0'rank", sdfw_tic_tac_toe.game.belief_ranking.call(null, p1__5924_SHARP_.call(null, "\ufdd0'belief")))
   }, moves_with_beliefs));
-  var top_move__5930 = cljs.core.first.call(null, ranked_moves__5929);
-  if(cljs.core._EQ_.call(null, 1, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__5930))) {
-    return top_move__5930
+  var top_move__5928 = cljs.core.first.call(null, ranked_moves__5927);
+  if(cljs.core._EQ_.call(null, 1, top_move__5928.call(null, "\ufdd0'rank"))) {
+    return top_move__5928.call(null, "\ufdd0'move")
   }else {
-    if(cljs.core._EQ_.call(null, 2, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__5930))) {
-      return top_move__5930
+    if(cljs.core._EQ_.call(null, 2, top_move__5928.call(null, "\ufdd0'rank"))) {
+      return top_move__5928.call(null, "\ufdd0'move")
     }else {
-      if(cljs.core._EQ_.call(null, 3, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__5930))) {
-        return cljs.core.first.call(null, cljs.core.shuffle.call(null, ranked_moves__5929))
+      if(cljs.core._EQ_.call(null, 3, top_move__5928.call(null, "\ufdd0'rank"))) {
+        return cljs.core.first.call(null, cljs.core.shuffle.call(null, ranked_moves__5927)).call(null, "\ufdd0'move")
       }else {
         if("\ufdd0'else") {
           return null
@@ -26000,77 +25618,3 @@ sdfw_tic_tac_toe.game.choose_move = function choose_move(moves_with_beliefs) {
     }
   }
 };
-sdfw_tic_tac_toe.game.game_move = function game_move(s, board) {
-  var p_moves__5935 = sdfw_tic_tac_toe.game.possible_moves.call(null, s, board);
-  var bp_moves__5936 = cljs.core.reduce.call(null, function(p1__5925_SHARP_, p2__5926_SHARP_) {
-    return cljs.core.conj.call(null, p1__5925_SHARP_, cljs.core.ObjMap.fromObject(["\ufdd0'move", "\ufdd0'belief"], {"\ufdd0'move":p2__5926_SHARP_, "\ufdd0'belief":sdfw_tic_tac_toe.game.belief_about_move.call(null, "\ufdd0'x", p2__5926_SHARP_)}))
-  }, cljs.core.PersistentVector.EMPTY, p_moves__5935);
-  return cljs.core.dissoc.call(null, sdfw_tic_tac_toe.game.choose_move.call(null, bp_moves__5936), "\ufdd0'rank")
-};
-sdfw_tic_tac_toe.game.debug_move = function debug_move(s, board) {
-  var p_moves__5939 = sdfw_tic_tac_toe.game.possible_moves.call(null, s, board);
-  var bp_moves__5940 = cljs.core.reduce.call(null, function(p1__5931_SHARP_, p2__5932_SHARP_) {
-    return cljs.core.conj.call(null, p1__5931_SHARP_, cljs.core.ObjMap.fromObject(["\ufdd0'move", "\ufdd0'belief"], {"\ufdd0'move":p2__5932_SHARP_, "\ufdd0'belief":sdfw_tic_tac_toe.game.belief_about_move.call(null, "\ufdd0'x", p2__5932_SHARP_)}))
-  }, cljs.core.PersistentVector.EMPTY, p_moves__5939);
-  return bp_moves__5940
-};
-goog.provide("sdfw_tic_tac_toe.ui");
-goog.require("cljs.core");
-goog.require("sdfw_tic_tac_toe.game");
-goog.require("domina.events");
-goog.require("domina");
-sdfw_tic_tac_toe.ui.marker_chosen = function marker_chosen() {
-  if(cljs.core.truth_(domina.has_class_QMARK_.call(null, domina.by_id.call(null, "x-marker-choose"), "active"))) {
-    return"x"
-  }else {
-    return"o"
-  }
-};
-sdfw_tic_tac_toe.ui.transform_tile = function transform_tile(tile) {
-  if(cljs.core.truth_(domina.has_class_QMARK_.call(null, tile, "x"))) {
-    return"\ufdd0'x"
-  }else {
-    if(cljs.core.truth_(domina.has_class_QMARK_.call(null, tile, "o"))) {
-      return"\ufdd0'o"
-    }else {
-      if("\ufdd0'else") {
-        return null
-      }else {
-        return null
-      }
-    }
-  }
-};
-sdfw_tic_tac_toe.ui.page_to_board = function page_to_board() {
-  var tiles__37890 = domina.by_class.call(null, "tile");
-  var s_tiles__37891 = domina.nodes.call(null, tiles__37890);
-  var t_tiles__37892 = cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_tile, s_tiles__37891);
-  var p_tiles__37893 = cljs.core.partition.call(null, 3, t_tiles__37892);
-  return cljs.core.reduce.call(null, function(p1__37884_SHARP_, p2__37885_SHARP_) {
-    return cljs.core.conj.call(null, p1__37884_SHARP_, cljs.core.vec.call(null, p2__37885_SHARP_))
-  }, cljs.core.PersistentVector.EMPTY, p_tiles__37893)
-};
-sdfw_tic_tac_toe.ui.transform_move_tile = function transform_move_tile(tile, new_s) {
-  if(cljs.core.not.call(null, domina.has_class_QMARK_.call(null, tile, new_s))) {
-    return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, tile, "blank"), new_s)
-  }else {
-    return null
-  }
-};
-domina.events.listen_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "\ufdd0'click", function(evt) {
-  sdfw_tic_tac_toe.ui.debugger$;
-  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "inactive"), "active");
-  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "x-marker-choose"), "active"), "inactive")
-});
-domina.events.listen_BANG_.call(null, domina.by_id.call(null, "x-marker-choose"), "\ufdd0'click", function(evt) {
-  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "inactive"), "active");
-  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "active"), "inactive")
-});
-domina.events.listen_BANG_.call(null, domina.by_class.call(null, "blank"), "\ufdd0'click", function(evt) {
-  domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "blank"), sdfw_tic_tac_toe.ui.marker_chosen.call(null));
-  domina.log.call(null, sdfw_tic_tac_toe.ui.page_to_board.call(null));
-  return domina.log.call(null, sdfw_tic_tac_toe.game.debug_move.call(null, "\ufdd0'x", sdfw_tic_tac_toe.ui.page_to_board.call(null)))
-});
-domina.events.listen_BANG_.call(null, domina.by_id.call(null, "new-game"), "\ufdd0'click", function(evt) {
-  return domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.remove_classes_BANG_.call(null, domina.by_class.call(null, "tile"), "x"), "o"), "blank")
-});

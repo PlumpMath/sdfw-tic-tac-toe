@@ -3,9 +3,9 @@
 (def beliefs
   { :win "I am going to win."
     :lose "My opponent is going to win."
-    :nonone "No one is going to win."})
+    :noone "No one is going to win."})
 
-(def belief-ranking
+(def belief-action-preferences
   { (beliefs :win) 1
     (beliefs :lose) 2
     (beliefs :noone) 3})
@@ -54,11 +54,24 @@
 (defn choose-move [moves-with-beliefs]
   (let [ranked-moves
          (sort-by :rank
-           (map #(assoc %1 :rank (belief-ranking (%1 :belief))) moves-with-beliefs))
+           (map #(assoc %1 :rank (belief-action-preferences (%1 :belief))) moves-with-beliefs))
          top-move (first ranked-moves)]
     (cond
-      (= 1 (top-move :rank)) (top-move :move)
-      (= 2 (top-move :rank)) (top-move :move)
-      (= 3 (top-move :rank)) ((first (shuffle ranked-moves)) :move)
+      (= 1 (:rank top-move)) top-move
+      (= 2 (:rank top-move)) top-move
+      (= 3 (:rank top-move)) (first (shuffle ranked-moves))
       :else nil)))
 
+(defn game-move [s board]
+  (let [p-moves (possible-moves s board)
+         bp-moves (reduce
+                    #(conj %1 {:move %2
+                                :belief (belief-about-move :x %2)}) [] p-moves)]
+    (dissoc (choose-move bp-moves) :rank)))
+
+(defn debug-move [s board]
+  (let [p-moves (possible-moves s board)
+         bp-moves (reduce
+                    #(conj %1 {:move %2
+                                :belief (belief-about-move :x %2)}) [] p-moves)]
+    bp-moves))
