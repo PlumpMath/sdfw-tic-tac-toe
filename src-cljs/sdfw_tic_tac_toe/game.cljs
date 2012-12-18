@@ -68,10 +68,3 @@
                     #(conj %1 {:move %2
                                 :belief (belief-about-move :x %2)}) [] p-moves)]
     (dissoc (choose-move bp-moves) :rank)))
-
-(defn debug-move [s board]
-  (let [p-moves (possible-moves s board)
-         bp-moves (reduce
-                    #(conj %1 {:move %2
-                                :belief (belief-about-move :x %2)}) [] p-moves)]
-    bp-moves))

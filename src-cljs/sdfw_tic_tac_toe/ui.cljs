@@ -21,11 +21,18 @@
     (reduce #(conj %1 (vec %2)) [] p-tiles)))
 
 (defn transform-move-tile [tile new-s]
-  (if-not
-    (d/has-class? tile new-s)
-    (-> tile
-      (d/remove-class! "blank")
-      (d/add-class! new-s))))
+  (if new-s
+    (if-not
+     (d/has-class? tile new-s)
+     (-> tile
+       (d/remove-class! "blank")
+       (d/add-class! (name new-s))))))
+
+(defn board-to-page [board]
+  (let [tiles (d/by-class "tile")
+         fboard (flatten board)
+         s-tiles (d/nodes tiles)]
+    (doall (map transform-move-tile s-tiles fboard))))
 
 
 (de/listen! (d/by-id "o-marker-choose") :click
@@ -50,8 +57,13 @@
     (-> (de/target evt)
       (d/remove-class! "blank")
       (d/add-class! (marker-chosen)))
-    (d/log (page-to-board))
-    (d/log (game/debug-move :x (page-to-board)))))
+    (let [pb (page-to-board)
+           nm (game/game-move :x (page-to-board))
+           nb (:move nm)]
+      (d/log pb)
+      (d/log nm)
+      (d/log nb)
+      (board-to-page nb))))
 
 
 (de/listen! (d/by-id "new-game") :click
