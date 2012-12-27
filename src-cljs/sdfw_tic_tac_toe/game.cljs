@@ -1,4 +1,4 @@
-(ns sdfw-tic-tac-toe.game)
+(ns sdfw_tic_tac_toe.game)
 
 (def beliefs
   { :win "I am going to win."
@@ -51,6 +51,25 @@
     (win (opponent s) move) (beliefs :lose)
     :else (beliefs :noone)))
 
+(defn add-beliefs-to-pmoves [s board]
+  (reduce #(conj %1 {:move %2
+                      :belief (belief-about-move s %2)})
+    [] (possible-moves s board)))
+
+
+(defn merge-beliefs [my-move op-move]
+  (if (= (:belief op-move) (beliefs :win))
+    (assoc my-move :belief (beliefs :lose))
+    my-move))
+
+
+(defn calculate-beliefs [s board]
+  (let [my-p-moves (add-beliefs-to-pmoves s board)
+         op-p-moves (add-beliefs-to-pmoves (opponent s) board)
+         merged-belief-moves (map merge-beliefs my-p-moves op-p-moves)]
+    merged-belief-moves))
+
+
 (defn choose-move [moves-with-beliefs]
   (let [ranked-moves
          (sort-by :rank
@@ -63,8 +82,6 @@
       :else nil)))
 
 (defn game-move [s board]
-  (let [p-moves (possible-moves s board)
-         bp-moves (reduce
-                    #(conj %1 {:move %2
-                                :belief (belief-about-move :x %2)}) [] p-moves)]
-    (dissoc (choose-move bp-moves) :rank)))
+  (dissoc
+    (choose-move
+     (calculate-beliefs s board)) :rank))
