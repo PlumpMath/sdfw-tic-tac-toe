@@ -68,8 +68,7 @@
 
 (de/listen! (d/by-id "new-game") :click
   (fn [evt]
-    (-> (d/by-class "tile")
-      (d/remove-classes! "x")
-      (d/remove-class! "o")
-      (d/add-class! "blank"))))
+    (doseq [n (d/nodes (d/by-class "tile"))]
+      (d/remove-class! n "x")
+      (d/remove-class! n "o"))))
 

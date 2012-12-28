@@ -1,4 +1,4 @@
-(ns sdfw_tic_tac_toe.game)
+(ns sdfw-tic-tac-toe.game)
 
 (def beliefs
   { :win "I am going to win."
