@@ -26056,13 +26056,13 @@ sdfw_tic_tac_toe.ui.transform_tile = function transform_tile(tile) {
   }
 };
 sdfw_tic_tac_toe.ui.page_to_board = function page_to_board() {
-  var tiles__78639 = domina.by_class.call(null, "tile");
-  var s_tiles__78640 = domina.nodes.call(null, tiles__78639);
-  var t_tiles__78641 = cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_tile, s_tiles__78640);
-  var p_tiles__78642 = cljs.core.partition.call(null, 3, t_tiles__78641);
-  return cljs.core.reduce.call(null, function(p1__78633_SHARP_, p2__78634_SHARP_) {
-    return cljs.core.conj.call(null, p1__78633_SHARP_, cljs.core.vec.call(null, p2__78634_SHARP_))
-  }, cljs.core.PersistentVector.EMPTY, p_tiles__78642)
+  var tiles__143069 = domina.by_class.call(null, "tile");
+  var s_tiles__143070 = domina.nodes.call(null, tiles__143069);
+  var t_tiles__143071 = cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_tile, s_tiles__143070);
+  var p_tiles__143072 = cljs.core.partition.call(null, 3, t_tiles__143071);
+  return cljs.core.reduce.call(null, function(p1__143063_SHARP_, p2__143064_SHARP_) {
+    return cljs.core.conj.call(null, p1__143063_SHARP_, cljs.core.vec.call(null, p2__143064_SHARP_))
+  }, cljs.core.PersistentVector.EMPTY, p_tiles__143072)
 };
 sdfw_tic_tac_toe.ui.transform_move_tile = function transform_move_tile(tile, new_s) {
   if(cljs.core.truth_(new_s)) {
@@ -26076,10 +26076,65 @@ sdfw_tic_tac_toe.ui.transform_move_tile = function transform_move_tile(tile, new
   }
 };
 sdfw_tic_tac_toe.ui.board_to_page = function board_to_page(board) {
-  var tiles__78646 = domina.by_class.call(null, "tile");
-  var fboard__78647 = cljs.core.flatten.call(null, board);
-  var s_tiles__78648 = domina.nodes.call(null, tiles__78646);
-  return cljs.core.doall.call(null, cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_move_tile, s_tiles__78648, fboard__78647))
+  var tiles__143076 = domina.by_class.call(null, "tile");
+  var fboard__143077 = cljs.core.flatten.call(null, board);
+  var s_tiles__143078 = domina.nodes.call(null, tiles__143076);
+  return cljs.core.doall.call(null, cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_move_tile, s_tiles__143078, fboard__143077))
+};
+sdfw_tic_tac_toe.ui.remove_blanks = function remove_blanks() {
+  var G__143085__143086 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
+  if(G__143085__143086) {
+    var n__143087 = cljs.core.first.call(null, G__143085__143086);
+    var G__143085__143088 = G__143085__143086;
+    while(true) {
+      domina.remove_class_BANG_.call(null, n__143087, "blank");
+      var temp__3974__auto____143089 = cljs.core.next.call(null, G__143085__143088);
+      if(temp__3974__auto____143089) {
+        var G__143085__143090 = temp__3974__auto____143089;
+        var G__143091 = cljs.core.first.call(null, G__143085__143090);
+        var G__143092 = G__143085__143090;
+        n__143087 = G__143091;
+        G__143085__143088 = G__143092;
+        continue
+      }else {
+        return null
+      }
+      break
+    }
+  }else {
+    return null
+  }
+};
+sdfw_tic_tac_toe.ui.show_x_winner = function show_x_winner() {
+  domina.remove_class_BANG_.call(null, domina.by_id.call(null, "x-wins"), "hidden");
+  return sdfw_tic_tac_toe.ui.remove_blanks.call(null)
+};
+sdfw_tic_tac_toe.ui.show_o_winner = function show_o_winner() {
+  domina.remove_class_BANG_.call(null, domina.by_id.call(null, "o-wins"), "hidden");
+  return sdfw_tic_tac_toe.ui.remove_blanks.call(null)
+};
+sdfw_tic_tac_toe.ui.winner_QMARK_ = function winner_QMARK_() {
+  var pb__143098 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
+  var x_wins__143099 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'x", pb__143098);
+  var o_wins__143100 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'o", pb__143098);
+  var winner__143102 = function() {
+    var or__3824__auto____143101 = x_wins__143099;
+    if(cljs.core.truth_(or__3824__auto____143101)) {
+      return or__3824__auto____143101
+    }else {
+      return o_wins__143100
+    }
+  }();
+  if(cljs.core.truth_(x_wins__143099)) {
+    sdfw_tic_tac_toe.ui.show_x_winner.call(null)
+  }else {
+  }
+  if(cljs.core.truth_(o_wins__143100)) {
+    sdfw_tic_tac_toe.ui.show_o_winner.call(null)
+  }else {
+  }
+  domina.log.call(null, winner__143102);
+  return winner__143102
 };
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "\ufdd0'click", function(evt) {
   sdfw_tic_tac_toe.ui.debugger$;
@@ -26092,43 +26147,48 @@ domina.events.listen_BANG_.call(null, domina.by_id.call(null, "x-marker-choose")
 });
 domina.events.listen_BANG_.call(null, domina.by_class.call(null, "blank"), "\ufdd0'click", function(evt) {
   domina.add_class_BANG_.call(null, domina.remove_class_BANG_.call(null, domina.events.target.call(null, evt), "blank"), sdfw_tic_tac_toe.ui.marker_chosen.call(null));
-  var pb__78649 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
-  var my_marker__78650 = sdfw_tic_tac_toe.ui.opponent.call(null, sdfw_tic_tac_toe.ui.marker_chosen.call(null));
-  var nm__78651 = sdfw_tic_tac_toe.game.game_move.call(null, my_marker__78650, sdfw_tic_tac_toe.ui.page_to_board.call(null));
-  var nb__78652 = (new cljs.core.Keyword("\ufdd0'move")).call(null, nm__78651);
-  var nbelief__78653 = (new cljs.core.Keyword("\ufdd0'belief")).call(null, nm__78651);
-  domina.log.call(null, my_marker__78650);
-  domina.log.call(null, pb__78649);
-  domina.log.call(null, nm__78651);
-  domina.log.call(null, nb__78652);
-  domina.log.call(null, nbelief__78653);
-  sdfw_tic_tac_toe.ui.board_to_page.call(null, nb__78652);
-  return domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), nbelief__78653)
+  if(cljs.core.truth_(sdfw_tic_tac_toe.ui.winner_QMARK_.call(null))) {
+    return null
+  }else {
+    var pb__143103 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
+    var my_marker__143104 = sdfw_tic_tac_toe.ui.opponent.call(null, sdfw_tic_tac_toe.ui.marker_chosen.call(null));
+    var nm__143105 = sdfw_tic_tac_toe.game.game_move.call(null, my_marker__143104, sdfw_tic_tac_toe.ui.page_to_board.call(null));
+    var nb__143106 = (new cljs.core.Keyword("\ufdd0'move")).call(null, nm__143105);
+    var nbelief__143107 = (new cljs.core.Keyword("\ufdd0'belief")).call(null, nm__143105);
+    domina.log.call(null, my_marker__143104);
+    domina.log.call(null, pb__143103);
+    domina.log.call(null, nm__143105);
+    domina.log.call(null, nb__143106);
+    domina.log.call(null, nbelief__143107);
+    sdfw_tic_tac_toe.ui.board_to_page.call(null, nb__143106);
+    sdfw_tic_tac_toe.ui.winner_QMARK_.call(null);
+    return domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), nbelief__143107)
+  }
 });
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "new-game"), "\ufdd0'click", function(evt) {
-  var G__78654__78655 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
-  if(G__78654__78655) {
-    var n__78656 = cljs.core.first.call(null, G__78654__78655);
-    var G__78654__78657 = G__78654__78655;
+  var G__143108__143109 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
+  if(G__143108__143109) {
+    var n__143110 = cljs.core.first.call(null, G__143108__143109);
+    var G__143108__143111 = G__143108__143109;
     while(true) {
-      domina.remove_class_BANG_.call(null, n__78656, "x");
-      domina.remove_class_BANG_.call(null, n__78656, "o");
-      domina.add_class_BANG_.call(null, n__78656, "blank");
-      domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), "None");
-      var temp__3974__auto____78658 = cljs.core.next.call(null, G__78654__78657);
-      if(temp__3974__auto____78658) {
-        var G__78654__78659 = temp__3974__auto____78658;
-        var G__78660 = cljs.core.first.call(null, G__78654__78659);
-        var G__78661 = G__78654__78659;
-        n__78656 = G__78660;
-        G__78654__78657 = G__78661;
+      domina.remove_class_BANG_.call(null, n__143110, "x");
+      domina.remove_class_BANG_.call(null, n__143110, "o");
+      domina.add_class_BANG_.call(null, n__143110, "blank");
+      var temp__3974__auto____143112 = cljs.core.next.call(null, G__143108__143111);
+      if(temp__3974__auto____143112) {
+        var G__143108__143113 = temp__3974__auto____143112;
+        var G__143114 = cljs.core.first.call(null, G__143108__143113);
+        var G__143115 = G__143108__143113;
+        n__143110 = G__143114;
+        G__143108__143111 = G__143115;
         continue
       }else {
-        return null
       }
       break
     }
   }else {
-    return null
   }
+  domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), "None");
+  domina.add_class_BANG_.call(null, domina.by_id.call(null, "x-wins"), "hidden");
+  return domina.add_class_BANG_.call(null, domina.by_id.call(null, "o-wins"), "hidden")
 });

@@ -37,6 +37,28 @@
          s-tiles (d/nodes tiles)]
     (doall (map transform-move-tile s-tiles fboard))))
 
+(defn remove-blanks []
+  (doseq [n (d/nodes (d/by-class "tile"))]
+    (d/remove-class! n "blank")))
+
+(defn show-x-winner []
+  (d/remove-class! (d/by-id "x-wins") "hidden")
+  (remove-blanks))
+
+(defn show-o-winner []
+  (d/remove-class! (d/by-id "o-wins") "hidden")
+  (remove-blanks))
+
+(defn winner? []
+  (let [pb (page-to-board)
+         x-wins (game/win :x pb)
+         o-wins (game/win :o pb)
+         winner (or x-wins o-wins)]
+    (if x-wins (show-x-winner))
+    (if o-wins (show-o-winner))
+    (d/log winner)
+    winner))
+
 
 (de/listen! (d/by-id "o-marker-choose") :click
   (fn [evt]
@@ -60,18 +82,21 @@
     (-> (de/target evt)
       (d/remove-class! "blank")
       (d/add-class! (marker-chosen)))
-    (let [pb (page-to-board)
-           my-marker (opponent (marker-chosen))
-           nm (game/game-move my-marker (page-to-board))
-           nb (:move nm)
-           nbelief (:belief nm)]
-      (d/log my-marker)
-      (d/log pb)
-      (d/log nm)
-      (d/log nb)
-      (d/log nbelief)
-      (board-to-page nb)
-      (d/set-text! (d/by-id "last-belief") nbelief))))
+    (when-not (winner?) 
+      (let [pb (page-to-board)
+            my-marker (opponent (marker-chosen))
+            nm (game/game-move my-marker (page-to-board))
+            nb (:move nm)
+            nbelief (:belief nm)]
+        (d/log my-marker)
+        (d/log pb)
+        (d/log nm)
+        (d/log nb)
+        (d/log nbelief)
+        (board-to-page nb)
+        (winner?)
+        (d/set-text! (d/by-id "last-belief") nbelief)
+        ))))
 
 
 (de/listen! (d/by-id "new-game") :click
@@ -80,5 +105,8 @@
       (d/remove-class! n "x")
       (d/remove-class! n "o")
       (d/add-class! n "blank")
-      (d/set-text! (d/by-id "last-belief") "None"))))
+      )
+    (d/set-text! (d/by-id "last-belief") "None")
+    (d/add-class! (d/by-id "x-wins") "hidden")
+    (d/add-class! (d/by-id "o-wins") "hidden")))
 

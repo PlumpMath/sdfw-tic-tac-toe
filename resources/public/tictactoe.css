@@ -169,8 +169,21 @@ h1{
 }
 
 #beliefs {
-    margin-left: 253px;
-    margin-top: 20px;
-    font-family: 'Share Tech', sans-serif;
+  margin-left: 252px;
+  margin-top: 20px;
+  font-family: 'Share Tech', sans-serif;
+}
+
+.winner {
+  position: absolute;
+  left: 85px;
+  top: 200px;
+  font-size: 194px;
+  font-family: 'Share Tech', sans-serif;
+  color: blue;
+}
+
+.hidden {
+  display: none;
 }
 
