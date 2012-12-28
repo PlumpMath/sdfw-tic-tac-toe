@@ -8,7 +8,7 @@
   (if (d/has-class? (d/by-id "x-marker-choose") "active") "x" "o"))
 
 (defn opponent [s]
-  (if (= s "x") "o" "x"))
+  (if (= s "x") :o :x))
 
 (defn transform-tile [tile]
   (cond
@@ -61,12 +61,17 @@
       (d/remove-class! "blank")
       (d/add-class! (marker-chosen)))
     (let [pb (page-to-board)
-           nm (game/game-move (opponent (marker-chosen)) (page-to-board))
-           nb (:move nm)]
+           my-marker (opponent (marker-chosen))
+           nm (game/game-move my-marker (page-to-board))
+           nb (:move nm)
+           nbelief (:belief nm)]
+      (d/log my-marker)
       (d/log pb)
       (d/log nm)
       (d/log nb)
-      (board-to-page nb))))
+      (d/log nbelief)
+      (board-to-page nb)
+      (d/set-text! (d/by-id "last-belief") nbelief))))
 
 
 (de/listen! (d/by-id "new-game") :click
@@ -74,5 +79,6 @@
     (doseq [n (d/nodes (d/by-class "tile"))]
       (d/remove-class! n "x")
       (d/remove-class! n "o")
-      (d/add-class! n "blank"))))
+      (d/add-class! n "blank")
+      (d/set-text! (d/by-id "last-belief") "None"))))
 
