@@ -1,13 +1,14 @@
-# sdfw-tic-tac-toe
+# Simple Deterministic Free Will Tic Tac Toe
 
-A Clojure library designed to ... well, that part is up to you.
+A ClojureScript Tic Tac Toe program that
+has beliefs and exhibits Simple Deterministic Free Will
+as defined in John McCarthy's papers 
+[Free Will for Robots](http://www-formal.stanford.edu/jmc/freewill/freewill.html)
+and [Simple Deterministic Free Will](http://www-formal.stanford.edu/jmc/freewill2/freewill2.html)
 
-## Usage
 
-FIXME
+## Play Here
 
-## License
-
-Copyright © 2012 FIXME
+Copyright © 2012 Carin Meier
 
 Distributed under the Eclipse Public License, the same as Clojure.
