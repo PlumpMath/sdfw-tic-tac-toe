@@ -7,7 +7,7 @@ as defined in John McCarthy's papers
 and [Simple Deterministic Free Will](http://www-formal.stanford.edu/jmc/freewill2/freewill2.html)
 
 
-## Play Here
+## Play Here [http://gigasquid.github.com/sdfw-tic-tac-toe/](http://gigasquid.github.com/sdfw-tic-tac-toe/)
 
 Copyright © 2012 Carin Meier
 
