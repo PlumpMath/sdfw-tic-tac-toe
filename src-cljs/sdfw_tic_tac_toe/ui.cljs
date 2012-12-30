@@ -56,7 +56,6 @@
          winner (or x-wins o-wins)]
     (if x-wins (show-x-winner))
     (if o-wins (show-o-winner))
-    (d/log winner)
     winner))
 
 
@@ -88,11 +87,6 @@
             nm (game/game-move my-marker (page-to-board))
             nb (:move nm)
             nbelief (:belief nm)]
-        (d/log my-marker)
-        (d/log pb)
-        (d/log nm)
-        (d/log nb)
-        (d/log nbelief)
         (board-to-page nb)
         (winner?)
         (d/set-text! (d/by-id "last-belief") nbelief)
