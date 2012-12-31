@@ -77,9 +77,7 @@
 
   (let [board [[:o nil nil] [:x :x nil] [nil nil nil]]
          result {:move  [[:o nil nil] [:x :x :o] [nil nil nil]], :belief "My opponent is going to win."}]
-    (is (= result (game-move :o board))))
-
-  )
+    (is (= result (game-move :o board)))))
 
 ;(run-tests 'sdfw-tic-tac-toe.test)
 
