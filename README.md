@@ -6,6 +6,7 @@ as defined in John McCarthy's papers
 [Free Will for Robots](http://www-formal.stanford.edu/jmc/freewill/freewill.html)
 and [Simple Deterministic Free Will](http://www-formal.stanford.edu/jmc/freewill2/freewill2.html)
 
+[My Blog Post About It](http://gigasquidsoftware.com/wordpress/?p=557)
 
 Play Here [http://gigasquid.github.com/sdfw-tic-tac-toe/](http://gigasquid.github.com/sdfw-tic-tac-toe/)
 

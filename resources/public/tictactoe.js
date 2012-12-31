@@ -25870,16 +25870,16 @@ goog.require("cljs.core");
 sdfw_tic_tac_toe.game.beliefs = cljs.core.ObjMap.fromObject(["\ufdd0'win", "\ufdd0'lose", "\ufdd0'noone"], {"\ufdd0'win":"I am going to win.", "\ufdd0'lose":"My opponent is going to win.", "\ufdd0'noone":"No one is going to win."});
 sdfw_tic_tac_toe.game.belief_action_preferences = cljs.core.PersistentArrayMap.fromArrays([sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'win"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'lose"), sdfw_tic_tac_toe.game.beliefs.call(null, "\ufdd0'noone")], [1, 2, 3]);
 sdfw_tic_tac_toe.game.win_across = function win_across(s, board) {
-  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__32893_SHARP_) {
-    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__32893_SHARP_)
+  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__36995_SHARP_) {
+    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__36995_SHARP_)
   }, board))
 };
 sdfw_tic_tac_toe.game.extract_down = function extract_down(board) {
   return cljs.core.PersistentVector.fromArray([cljs.core.map.call(null, cljs.core.first, board), cljs.core.map.call(null, cljs.core.second, board), cljs.core.map.call(null, cljs.core.last, board)], true)
 };
 sdfw_tic_tac_toe.game.win_down = function win_down(s, board) {
-  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__32894_SHARP_) {
-    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__32894_SHARP_)
+  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__36996_SHARP_) {
+    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__36996_SHARP_)
   }, sdfw_tic_tac_toe.game.extract_down.call(null, board)))
 };
 sdfw_tic_tac_toe.game.extract_diag = function extract_diag(board) {
@@ -25887,18 +25887,18 @@ sdfw_tic_tac_toe.game.extract_diag = function extract_diag(board) {
   true)], true)
 };
 sdfw_tic_tac_toe.game.win_diag = function win_diag(s, board) {
-  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__32895_SHARP_) {
-    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__32895_SHARP_)
+  return cljs.core.some.call(null, cljs.core.true_QMARK_, cljs.core.map.call(null, function(p1__36997_SHARP_) {
+    return cljs.core.every_QMARK_.call(null, cljs.core.set([s]), p1__36997_SHARP_)
   }, sdfw_tic_tac_toe.game.extract_diag.call(null, board)))
 };
 sdfw_tic_tac_toe.game.win = function win(s, board) {
-  var or__3824__auto____32898 = sdfw_tic_tac_toe.game.win_across.call(null, s, board);
-  if(cljs.core.truth_(or__3824__auto____32898)) {
-    return or__3824__auto____32898
+  var or__3824__auto____37000 = sdfw_tic_tac_toe.game.win_across.call(null, s, board);
+  if(cljs.core.truth_(or__3824__auto____37000)) {
+    return or__3824__auto____37000
   }else {
-    var or__3824__auto____32899 = sdfw_tic_tac_toe.game.win_down.call(null, s, board);
-    if(cljs.core.truth_(or__3824__auto____32899)) {
-      return or__3824__auto____32899
+    var or__3824__auto____37001 = sdfw_tic_tac_toe.game.win_down.call(null, s, board);
+    if(cljs.core.truth_(or__3824__auto____37001)) {
+      return or__3824__auto____37001
     }else {
       return sdfw_tic_tac_toe.game.win_diag.call(null, s, board)
     }
@@ -25906,43 +25906,43 @@ sdfw_tic_tac_toe.game.win = function win(s, board) {
 };
 sdfw_tic_tac_toe.game.possible_moves = function possible_moves(s, board) {
   return cljs.core.remove.call(null, cljs.core.nil_QMARK_, function() {
-    var iter__2427__auto____32949 = function iter__32925(s__32926) {
+    var iter__2427__auto____37051 = function iter__37027(s__37028) {
       return new cljs.core.LazySeq(null, false, function() {
-        var s__32926__32939 = s__32926;
+        var s__37028__37041 = s__37028;
         while(true) {
-          if(cljs.core.seq.call(null, s__32926__32939)) {
-            var x__32940 = cljs.core.first.call(null, s__32926__32939);
-            var iterys__2425__auto____32947 = function(s__32926__32939, x__32940) {
-              return function iter__32927(s__32928) {
-                return new cljs.core.LazySeq(null, false, function(s__32926__32939, x__32940) {
+          if(cljs.core.seq.call(null, s__37028__37041)) {
+            var x__37042 = cljs.core.first.call(null, s__37028__37041);
+            var iterys__2425__auto____37049 = function(s__37028__37041, x__37042) {
+              return function iter__37029(s__37030) {
+                return new cljs.core.LazySeq(null, false, function(s__37028__37041, x__37042) {
                   return function() {
-                    var s__32928__32944 = s__32928;
+                    var s__37030__37046 = s__37030;
                     while(true) {
-                      if(cljs.core.seq.call(null, s__32928__32944)) {
-                        var y__32945 = cljs.core.first.call(null, s__32928__32944);
+                      if(cljs.core.seq.call(null, s__37030__37046)) {
+                        var y__37047 = cljs.core.first.call(null, s__37030__37046);
                         return cljs.core.cons.call(null, function() {
-                          var spot__32946 = cljs.core.nth.call(null, cljs.core.nth.call(null, board, x__32940), y__32945);
-                          if(spot__32946 == null) {
-                            return cljs.core.assoc_in.call(null, board, cljs.core.PersistentVector.fromArray([x__32940, y__32945], true), s)
+                          var spot__37048 = cljs.core.nth.call(null, cljs.core.nth.call(null, board, x__37042), y__37047);
+                          if(spot__37048 == null) {
+                            return cljs.core.assoc_in.call(null, board, cljs.core.PersistentVector.fromArray([x__37042, y__37047], true), s)
                           }else {
                             return null
                           }
-                        }(), iter__32927.call(null, cljs.core.rest.call(null, s__32928__32944)))
+                        }(), iter__37029.call(null, cljs.core.rest.call(null, s__37030__37046)))
                       }else {
                         return null
                       }
                       break
                     }
                   }
-                }(s__32926__32939, x__32940), null)
+                }(s__37028__37041, x__37042), null)
               }
-            }(s__32926__32939, x__32940);
-            var fs__2426__auto____32948 = cljs.core.seq.call(null, iterys__2425__auto____32947.call(null, cljs.core.range.call(null, 3)));
-            if(fs__2426__auto____32948) {
-              return cljs.core.concat.call(null, fs__2426__auto____32948, iter__32925.call(null, cljs.core.rest.call(null, s__32926__32939)))
+            }(s__37028__37041, x__37042);
+            var fs__2426__auto____37050 = cljs.core.seq.call(null, iterys__2425__auto____37049.call(null, cljs.core.range.call(null, 3)));
+            if(fs__2426__auto____37050) {
+              return cljs.core.concat.call(null, fs__2426__auto____37050, iter__37027.call(null, cljs.core.rest.call(null, s__37028__37041)))
             }else {
-              var G__32950 = cljs.core.rest.call(null, s__32926__32939);
-              s__32926__32939 = G__32950;
+              var G__37052 = cljs.core.rest.call(null, s__37028__37041);
+              s__37028__37041 = G__37052;
               continue
             }
           }else {
@@ -25952,7 +25952,7 @@ sdfw_tic_tac_toe.game.possible_moves = function possible_moves(s, board) {
         }
       }, null)
     };
-    return iter__2427__auto____32949.call(null, cljs.core.range.call(null, 3))
+    return iter__2427__auto____37051.call(null, cljs.core.range.call(null, 3))
   }())
 };
 sdfw_tic_tac_toe.game.opponent = function opponent(s) {
@@ -25978,8 +25978,8 @@ sdfw_tic_tac_toe.game.belief_about_move = function belief_about_move(s, move) {
   }
 };
 sdfw_tic_tac_toe.game.add_beliefs_to_pmoves = function add_beliefs_to_pmoves(s, board) {
-  return cljs.core.reduce.call(null, function(p1__32951_SHARP_, p2__32952_SHARP_) {
-    return cljs.core.conj.call(null, p1__32951_SHARP_, cljs.core.ObjMap.fromObject(["\ufdd0'move", "\ufdd0'belief"], {"\ufdd0'move":p2__32952_SHARP_, "\ufdd0'belief":sdfw_tic_tac_toe.game.belief_about_move.call(null, s, p2__32952_SHARP_)}))
+  return cljs.core.reduce.call(null, function(p1__37053_SHARP_, p2__37054_SHARP_) {
+    return cljs.core.conj.call(null, p1__37053_SHARP_, cljs.core.ObjMap.fromObject(["\ufdd0'move", "\ufdd0'belief"], {"\ufdd0'move":p2__37054_SHARP_, "\ufdd0'belief":sdfw_tic_tac_toe.game.belief_about_move.call(null, s, p2__37054_SHARP_)}))
   }, cljs.core.PersistentVector.EMPTY, sdfw_tic_tac_toe.game.possible_moves.call(null, s, board))
 };
 sdfw_tic_tac_toe.game.merge_beliefs = function merge_beliefs(my_move, op_move) {
@@ -25990,24 +25990,24 @@ sdfw_tic_tac_toe.game.merge_beliefs = function merge_beliefs(my_move, op_move) {
   }
 };
 sdfw_tic_tac_toe.game.calculate_beliefs = function calculate_beliefs(s, board) {
-  var my_p_moves__32957 = sdfw_tic_tac_toe.game.add_beliefs_to_pmoves.call(null, s, board);
-  var op_p_moves__32958 = sdfw_tic_tac_toe.game.add_beliefs_to_pmoves.call(null, sdfw_tic_tac_toe.game.opponent.call(null, s), board);
-  var merged_belief_moves__32959 = cljs.core.map.call(null, sdfw_tic_tac_toe.game.merge_beliefs, my_p_moves__32957, op_p_moves__32958);
-  return merged_belief_moves__32959
+  var my_p_moves__37059 = sdfw_tic_tac_toe.game.add_beliefs_to_pmoves.call(null, s, board);
+  var op_p_moves__37060 = sdfw_tic_tac_toe.game.add_beliefs_to_pmoves.call(null, sdfw_tic_tac_toe.game.opponent.call(null, s), board);
+  var merged_belief_moves__37061 = cljs.core.map.call(null, sdfw_tic_tac_toe.game.merge_beliefs, my_p_moves__37059, op_p_moves__37060);
+  return merged_belief_moves__37061
 };
 sdfw_tic_tac_toe.game.choose_move = function choose_move(moves_with_beliefs) {
-  var ranked_moves__32962 = cljs.core.sort_by.call(null, "\ufdd0'rank", cljs.core.map.call(null, function(p1__32953_SHARP_) {
-    return cljs.core.assoc.call(null, p1__32953_SHARP_, "\ufdd0'rank", sdfw_tic_tac_toe.game.belief_action_preferences.call(null, p1__32953_SHARP_.call(null, "\ufdd0'belief")))
+  var ranked_moves__37064 = cljs.core.sort_by.call(null, "\ufdd0'rank", cljs.core.map.call(null, function(p1__37055_SHARP_) {
+    return cljs.core.assoc.call(null, p1__37055_SHARP_, "\ufdd0'rank", sdfw_tic_tac_toe.game.belief_action_preferences.call(null, p1__37055_SHARP_.call(null, "\ufdd0'belief")))
   }, moves_with_beliefs));
-  var top_move__32963 = cljs.core.first.call(null, ranked_moves__32962);
-  if(cljs.core._EQ_.call(null, 1, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__32963))) {
-    return top_move__32963
+  var top_move__37065 = cljs.core.first.call(null, ranked_moves__37064);
+  if(cljs.core._EQ_.call(null, 1, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__37065))) {
+    return top_move__37065
   }else {
-    if(cljs.core._EQ_.call(null, 2, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__32963))) {
-      return top_move__32963
+    if(cljs.core._EQ_.call(null, 2, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__37065))) {
+      return top_move__37065
     }else {
-      if(cljs.core._EQ_.call(null, 3, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__32963))) {
-        return cljs.core.first.call(null, cljs.core.shuffle.call(null, ranked_moves__32962))
+      if(cljs.core._EQ_.call(null, 3, (new cljs.core.Keyword("\ufdd0'rank")).call(null, top_move__37065))) {
+        return cljs.core.first.call(null, cljs.core.shuffle.call(null, ranked_moves__37064))
       }else {
         if("\ufdd0'else") {
           return null
@@ -26056,13 +26056,13 @@ sdfw_tic_tac_toe.ui.transform_tile = function transform_tile(tile) {
   }
 };
 sdfw_tic_tac_toe.ui.page_to_board = function page_to_board() {
-  var tiles__32846 = domina.by_class.call(null, "tile");
-  var s_tiles__32847 = domina.nodes.call(null, tiles__32846);
-  var t_tiles__32848 = cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_tile, s_tiles__32847);
-  var p_tiles__32849 = cljs.core.partition.call(null, 3, t_tiles__32848);
-  return cljs.core.reduce.call(null, function(p1__32840_SHARP_, p2__32841_SHARP_) {
-    return cljs.core.conj.call(null, p1__32840_SHARP_, cljs.core.vec.call(null, p2__32841_SHARP_))
-  }, cljs.core.PersistentVector.EMPTY, p_tiles__32849)
+  var tiles__36948 = domina.by_class.call(null, "tile");
+  var s_tiles__36949 = domina.nodes.call(null, tiles__36948);
+  var t_tiles__36950 = cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_tile, s_tiles__36949);
+  var p_tiles__36951 = cljs.core.partition.call(null, 3, t_tiles__36950);
+  return cljs.core.reduce.call(null, function(p1__36942_SHARP_, p2__36943_SHARP_) {
+    return cljs.core.conj.call(null, p1__36942_SHARP_, cljs.core.vec.call(null, p2__36943_SHARP_))
+  }, cljs.core.PersistentVector.EMPTY, p_tiles__36951)
 };
 sdfw_tic_tac_toe.ui.transform_move_tile = function transform_move_tile(tile, new_s) {
   if(cljs.core.truth_(new_s)) {
@@ -26076,25 +26076,25 @@ sdfw_tic_tac_toe.ui.transform_move_tile = function transform_move_tile(tile, new
   }
 };
 sdfw_tic_tac_toe.ui.board_to_page = function board_to_page(board) {
-  var tiles__32853 = domina.by_class.call(null, "tile");
-  var fboard__32854 = cljs.core.flatten.call(null, board);
-  var s_tiles__32855 = domina.nodes.call(null, tiles__32853);
-  return cljs.core.doall.call(null, cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_move_tile, s_tiles__32855, fboard__32854))
+  var tiles__36955 = domina.by_class.call(null, "tile");
+  var fboard__36956 = cljs.core.flatten.call(null, board);
+  var s_tiles__36957 = domina.nodes.call(null, tiles__36955);
+  return cljs.core.doall.call(null, cljs.core.map.call(null, sdfw_tic_tac_toe.ui.transform_move_tile, s_tiles__36957, fboard__36956))
 };
 sdfw_tic_tac_toe.ui.remove_blanks = function remove_blanks() {
-  var G__32862__32863 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
-  if(G__32862__32863) {
-    var n__32864 = cljs.core.first.call(null, G__32862__32863);
-    var G__32862__32865 = G__32862__32863;
+  var G__36964__36965 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
+  if(G__36964__36965) {
+    var n__36966 = cljs.core.first.call(null, G__36964__36965);
+    var G__36964__36967 = G__36964__36965;
     while(true) {
-      domina.remove_class_BANG_.call(null, n__32864, "blank");
-      var temp__3974__auto____32866 = cljs.core.next.call(null, G__32862__32865);
-      if(temp__3974__auto____32866) {
-        var G__32862__32867 = temp__3974__auto____32866;
-        var G__32868 = cljs.core.first.call(null, G__32862__32867);
-        var G__32869 = G__32862__32867;
-        n__32864 = G__32868;
-        G__32862__32865 = G__32869;
+      domina.remove_class_BANG_.call(null, n__36966, "blank");
+      var temp__3974__auto____36968 = cljs.core.next.call(null, G__36964__36967);
+      if(temp__3974__auto____36968) {
+        var G__36964__36969 = temp__3974__auto____36968;
+        var G__36970 = cljs.core.first.call(null, G__36964__36969);
+        var G__36971 = G__36964__36969;
+        n__36966 = G__36970;
+        G__36964__36967 = G__36971;
         continue
       }else {
         return null
@@ -26114,26 +26114,26 @@ sdfw_tic_tac_toe.ui.show_o_winner = function show_o_winner() {
   return sdfw_tic_tac_toe.ui.remove_blanks.call(null)
 };
 sdfw_tic_tac_toe.ui.winner_QMARK_ = function winner_QMARK_() {
-  var pb__32875 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
-  var x_wins__32876 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'x", pb__32875);
-  var o_wins__32877 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'o", pb__32875);
-  var winner__32879 = function() {
-    var or__3824__auto____32878 = x_wins__32876;
-    if(cljs.core.truth_(or__3824__auto____32878)) {
-      return or__3824__auto____32878
+  var pb__36977 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
+  var x_wins__36978 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'x", pb__36977);
+  var o_wins__36979 = sdfw_tic_tac_toe.game.win.call(null, "\ufdd0'o", pb__36977);
+  var winner__36981 = function() {
+    var or__3824__auto____36980 = x_wins__36978;
+    if(cljs.core.truth_(or__3824__auto____36980)) {
+      return or__3824__auto____36980
     }else {
-      return o_wins__32877
+      return o_wins__36979
     }
   }();
-  if(cljs.core.truth_(x_wins__32876)) {
+  if(cljs.core.truth_(x_wins__36978)) {
     sdfw_tic_tac_toe.ui.show_x_winner.call(null)
   }else {
   }
-  if(cljs.core.truth_(o_wins__32877)) {
+  if(cljs.core.truth_(o_wins__36979)) {
     sdfw_tic_tac_toe.ui.show_o_winner.call(null)
   }else {
   }
-  return winner__32879
+  return winner__36981
 };
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "o-marker-choose"), "\ufdd0'click", function(evt) {
   sdfw_tic_tac_toe.ui.debugger$;
@@ -26149,32 +26149,32 @@ domina.events.listen_BANG_.call(null, domina.by_class.call(null, "blank"), "\ufd
   if(cljs.core.truth_(sdfw_tic_tac_toe.ui.winner_QMARK_.call(null))) {
     return null
   }else {
-    var pb__32880 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
-    var my_marker__32881 = sdfw_tic_tac_toe.ui.opponent.call(null, sdfw_tic_tac_toe.ui.marker_chosen.call(null));
-    var nm__32882 = sdfw_tic_tac_toe.game.game_move.call(null, my_marker__32881, sdfw_tic_tac_toe.ui.page_to_board.call(null));
-    var nb__32883 = (new cljs.core.Keyword("\ufdd0'move")).call(null, nm__32882);
-    var nbelief__32884 = (new cljs.core.Keyword("\ufdd0'belief")).call(null, nm__32882);
-    sdfw_tic_tac_toe.ui.board_to_page.call(null, nb__32883);
+    var pb__36982 = sdfw_tic_tac_toe.ui.page_to_board.call(null);
+    var my_marker__36983 = sdfw_tic_tac_toe.ui.opponent.call(null, sdfw_tic_tac_toe.ui.marker_chosen.call(null));
+    var nm__36984 = sdfw_tic_tac_toe.game.game_move.call(null, my_marker__36983, sdfw_tic_tac_toe.ui.page_to_board.call(null));
+    var nb__36985 = (new cljs.core.Keyword("\ufdd0'move")).call(null, nm__36984);
+    var nbelief__36986 = (new cljs.core.Keyword("\ufdd0'belief")).call(null, nm__36984);
+    sdfw_tic_tac_toe.ui.board_to_page.call(null, nb__36985);
     sdfw_tic_tac_toe.ui.winner_QMARK_.call(null);
-    return domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), nbelief__32884)
+    return domina.set_text_BANG_.call(null, domina.by_id.call(null, "last-belief"), nbelief__36986)
   }
 });
 domina.events.listen_BANG_.call(null, domina.by_id.call(null, "new-game"), "\ufdd0'click", function(evt) {
-  var G__32885__32886 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
-  if(G__32885__32886) {
-    var n__32887 = cljs.core.first.call(null, G__32885__32886);
-    var G__32885__32888 = G__32885__32886;
+  var G__36987__36988 = cljs.core.seq.call(null, domina.nodes.call(null, domina.by_class.call(null, "tile")));
+  if(G__36987__36988) {
+    var n__36989 = cljs.core.first.call(null, G__36987__36988);
+    var G__36987__36990 = G__36987__36988;
     while(true) {
-      domina.remove_class_BANG_.call(null, n__32887, "x");
-      domina.remove_class_BANG_.call(null, n__32887, "o");
-      domina.add_class_BANG_.call(null, n__32887, "blank");
-      var temp__3974__auto____32889 = cljs.core.next.call(null, G__32885__32888);
-      if(temp__3974__auto____32889) {
-        var G__32885__32890 = temp__3974__auto____32889;
-        var G__32891 = cljs.core.first.call(null, G__32885__32890);
-        var G__32892 = G__32885__32890;
-        n__32887 = G__32891;
-        G__32885__32888 = G__32892;
+      domina.remove_class_BANG_.call(null, n__36989, "x");
+      domina.remove_class_BANG_.call(null, n__36989, "o");
+      domina.add_class_BANG_.call(null, n__36989, "blank");
+      var temp__3974__auto____36991 = cljs.core.next.call(null, G__36987__36990);
+      if(temp__3974__auto____36991) {
+        var G__36987__36992 = temp__3974__auto____36991;
+        var G__36993 = cljs.core.first.call(null, G__36987__36992);
+        var G__36994 = G__36987__36992;
+        n__36989 = G__36993;
+        G__36987__36990 = G__36994;
         continue
       }else {
       }
